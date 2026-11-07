@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aether — Интеллект, который ощущается естественно</title>
+  <meta name="description" content="Aether — персональный ИИ-ассистент в стиле Apple: тихий, точный и созданный для фокуса." />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f5f5f7;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: rgba(0,0,0,.08);
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --max: 1120px;
+      --radius: 28px;
+      --shadow: 0 20px 60px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: saturate(180%) blur(20px);
+      background: rgba(255,255,255,.72);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 24px;
+      height: 48px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: rgba(29,29,31,.8);
+    }
+    .brand { font-weight: 600; letter-spacing: -.01em; color: var(--text); font-size: 14px; }
+    .nav-links { display: flex; gap: 22px; align-items: center; }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 11px 18px; border-radius: 980px; font-size: 14px; font-weight: 500;
+      transition: background .2s ease, transform .2s ease, color .2s ease;
+      border: 0; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-link { color: var(--accent); padding: 11px 4px; font-size: 17px; }
+    .btn-link:hover { text-decoration: underline; }
+    .section { padding: 110px 24px; }
+    .container { max-width: var(--max); margin: 0 auto; }
+    .hero { padding-top: 72px; padding-bottom: 40px; text-align: center; overflow: hidden; }
+    .eyebrow { color: var(--muted); font-size: 21px; font-weight: 500; margin: 0 0 10px; }
+    h1 {
+      margin: 0 auto 14px; max-width: 980px;
+      font-size: clamp(48px, 7vw, 80px); line-height: 1.03; letter-spacing: -.03em; font-weight: 600;
+    }
+    .lead {
+      margin: 0 auto 26px; max-width: 720px;
+      font-size: clamp(21px, 2.4vw, 28px); color: var(--muted); letter-spacing: -.01em;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 54px; }
+    .hero-visual {
+      max-width: 980px; margin: 0 auto;
+      background: linear-gradient(180deg, #fbfbfd 0%, #f0f0f3 100%);
+      border-radius: 36px; border: 1px solid rgba(0,0,0,.05);
+      min-height: 520px; position: relative; box-shadow: var(--shadow);
+      display: grid; place-items: center; overflow: hidden;
+    }
+    .orb {
+      width: min(52vw, 360px); aspect-ratio: 1; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #dfe8f7 28%, #b7c9e8 55%, #8ea7d8 75%, #6f86c2 100%);
+      box-shadow: 0 30px 80px rgba(60,90,160,.25), inset 0 -20px 50px rgba(255,255,255,.5);
+      position: relative; animation: float 7s ease-in-out infinite;
+    }
+    .orb::after {
+      content: ""; position: absolute; inset: 10%; border-radius: 50%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%);
+      filter: blur(2px);
+    }
+    @keyframes float { 0%,100%{ transform: translateY(0)} 50%{ transform: translateY(-10px)} }
+    .caption { margin-top: 18px; color: var(--muted); font-size: 14px; }
+    .split { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: stretch; }
+    .card {
+      background: var(--bg-soft); border-radius: var(--radius); padding: 42px;
+      min-height: 360px; display: flex; flex-direction: column; justify-content: space-between;
+      border: 1px solid rgba(0,0,0,.03);
+    }
+    .card.white { background: #fff; border: 1px solid var(--line); }
+    .kicker { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+    h2 { margin: 0 0 12px; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -.025em; font-weight: 600; }
+    h3 { margin: 0 0 8px; font-size: 28px; line-height: 1.12; letter-spacing: -.02em; font-weight: 600; }
+    p { margin: 0; }
+    .muted { color: var(--muted); font-size: 19px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 34px; }
+    .feature {
+      padding: 28px; border-top: 1px solid var(--line);
+    }
+    .feature .icon {
+      width: 40px; height: 40px; border-radius: 12px; background: #fff; border: 1px solid var(--line);
+      display: grid; place-items: center; margin-bottom: 16px; color: var(--text); font-size: 18px;
+    }
+    .feature p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+    .feature h4 { margin: 0; font-size: 19px; letter-spacing: -.01em; }
+    .statement { text-align: center; max-width: 860px; margin: 0 auto; }
+    .statement h2 { font-size: clamp(36px, 5vw, 56px); }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
+    .chip { padding: 8px 14px; border-radius: 980px; background: var(--bg-soft); color: #424245; font-size: 14px; }
+    .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 36px; }
+    .spec { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 24px; text-align: center; }
+    .spec strong { display: block; font-size: 34px; letter-spacing: -.03em; }
+    .spec span { color: var(--muted); font-size: 14px; }
+    .cta {
+      background: #1d1d1f; color: #f5f5f7; border-radius: 36px; padding: 64px 28px; text-align: center;
+    }
+    .cta h2 { color: #fff; }
+    .cta p { color: #a1a1a6; font-size: 21px; max-width: 680px; margin: 10px auto 24px; }
+    .cta .btn-primary { padding: 13px 22px; font-size: 16px; }
+    .foot {
+      padding: 28px 24px 50px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line);
+    }
+    .foot-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 900px) {
+      .split, .grid-3, .specs { grid-template-columns: 1fr; }
+      .nav-links .hide-sm { display: none; }
+      .section { padding: 76px 20px; }
+      .hero-visual { min-height: 380px; }
+      .card { padding: 30px; min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">Aether</a>
+      <div class="nav-links">
+        <a class="hide-sm" href="#features">Возможности</a>
+        <a class="hide-sm" href="#focus">Фокус</a>
+        <a class="hide-sm" href="#privacy">Приватность</a>
+        <a class="btn btn-primary" href="#start">Попробовать</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="section hero">
+      <div class="container">
+        <p class="eyebrow reveal">Представляем Aether</p>
+        <h1 class="reveal">Интеллект, который<br>ощущается естественно.</h1>
+        <p class="lead reveal">Персональный ИИ для мыслей, задач и идей. Мощный внутри. Спокойный снаружи. Создан, чтобы помогать — не отвлекая.</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#start">Начать бесплатно</a>
+          <a class="btn btn-link" href="#features">Подробнее ›</a>
+        </div>
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div>
+            <div class="orb"></div>
+            <div class="caption">Aether адаптируется к вашему ритму работы.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="split">
+          <article class="card reveal">
+            <div>
+              <div class="kicker">Понимание</div>
+              <h2>Слышит контекст.<br>Отвечает по делу.</h2>
+              <p class="muted">Aether связывает документы, заметки и диалоги в одну ясную картину — чтобы вы меньше искали и быстрее принимали решения.</p>
+            </div>
+          </article>
+          <article class="card white reveal">
+            <div>
+              <div class="kicker">Скорость</div>
+              <h3>От вопроса до действия — за секунды.</h3>
+              <p class="muted" style="font-size:17px; margin-top:10px;">Черновики, резюме, планы и ответы появляются там, где вы работаете. Без лишних шагов.</p>
+            </div>
+            <div class="chips">
+              <span class="chip">Письмо</span><span class="chip">Анализ</span><span class="chip">Планирование</span><span class="chip">Идеи</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="grid-3">
+          <div class="feature reveal">
+            <div class="icon">◎</div>
+            <h4>Точный тон</h4>
+            <p>Подстраивает стиль под задачу: кратко, делово или творчески — без потери смысла.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="icon">◌</div>
+            <h4>Непрерывность</h4>
+            <p>Продолжает начатое и сохраняет логику проекта, чтобы вы не тратили время на повторы.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="icon">▣</div>
+            <h4>Ясная структура</h4>
+            <p>Превращает хаос мыслей в понятные шаги, списки и решения.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="focus" style="background:var(--bg-soft); border-top:1px solid rgba(0,0,0,.04); border-bottom:1px solid rgba(0,0,0,.04);">
+      <div class="container">
+        <div class="statement reveal">
+          <div class="kicker">Дизайн для фокуса</div>
+          <h2>Меньше шума.<br>Больше сделанного.</h2>
+          <p class="muted" style="margin-top:14px;">Интерфейс Aether намеренно тихий: пространство, типографика и плавные переходы помогают удерживать внимание на главном.</p>
+        </div>
+        <div class="specs">
+          <div class="spec reveal"><strong>2×</strong><span>быстрее к первому черновику</span></div>
+          <div class="spec reveal"><strong>1</strong><span>рабочее пространство для задач</span></div>
+          <div class="spec reveal"><strong>24/7</strong><span>доступность, когда нужна идея</span></div>
+          <div class="spec reveal"><strong>0</strong><span>лишних отвлечений в интерфейсе</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="privacy">
+      <div class="container">
+        <div class="split">
+          <article class="card white reveal">
+            <div class="kicker">Приватность</div>
+            <h2>Ваши данные остаются вашими.</h2>
+            <p class="muted">Aether проектируется вокруг прозрачного контроля: вы решаете, чем делиться, что хранить и что удалять. Просто и понятно.</p>
+          </article>
+          <article class="card reveal">
+            <div class="kicker">Доверие</div>
+            <h3>Спокойствие — тоже функция.</h3>
+            <p class="muted" style="font-size:17px; margin-top:10px;">Продуманная модель доступа и понятные настройки делают работу с ИИ предсказуемой — для вас и вашей команды.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="start">
+      <div class="container">
+        <div class="cta reveal">
+          <h2>Попробуйте Aether.</h2>
+          <p>Начните с простой идеи. Aether поможет превратить её в результат — аккуратно, быстро и в вашем стиле.</p>
+          <a class="btn btn-primary" href="#top" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})">Вернуться наверх</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <div>© 2026 Aether. Концепт-лендинг в стиле Apple, созданный для демонстрации.</div>
+      <div><a href="#privacy">Приватность</a> · <a href="#features">Возможности</a> · <a href="#top">Наверх</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
